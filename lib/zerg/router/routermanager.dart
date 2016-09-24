@@ -1,9 +1,9 @@
 part of zerg;
 
 
-Map<int, router> routerMap = new Map<int,router>();
+Map<int, Router> routerMap = new Map<int,Router>();
 
-void registerMessageRouter(router r) {
+void registerMessageRouter(Router r) {
   int routerId = r.getRouterType();
   if(routerMap.containsKey(routerId)){
     logError("routermanager", "router id:{$routerId} has register");
@@ -15,25 +15,26 @@ void registerMessageRouter(router r) {
 List<int> doMessageBuffs(List<int> reqBuf){
   PB_CommonMsg reqRouter = new PB_CommonMsg();
   reqRouter.mergeFromBuffer(reqBuf);
-  if(!routerMap.containsKey(reqRouter.msgId)){
-    logError("routermanager", "doMessageBuffs router id:${reqRouter.msgId} has not register");
-    return doCommonErrorMsg(SC10000_errorCodeType.PB_BuffPraseError,reqRouter.msgId,"opcode is not available");
+  if(!routerMap.containsKey(reqRouter.opCode)){
+    logError("routermanager", "doMessageBuffs router id:${reqRouter.opCode} has not register");
+    return doCommonErrorMsg(SC10000_errorCodeType.PB_BuffPraseError,reqRouter.opCode,"opcode is not available");
   }
 
-  List<int> msgBuf = routerMap["reqRouter.msgId"].onPacketHandler(reqRouter.msgBuf); 
-	return doCommonMsg(123,msgBuf);
+  int reOpCode = routerMap[reqRouter.opCode].getRouterType();
+  List<int> msgBuf = routerMap[reqRouter.opCode].onPacketHandler(reqRouter.msgBuf); 
+	return doCommonMsg(reOpCode,msgBuf);
 }
 
-List<int> doCommonErrorMsg(SC10000_errorCodeType errorCode, int errRouterId, String errInfo){
+List<int> doCommonErrorMsg(SC10000_errorCodeType errorCode, int opCode, String errInfo){
   SC10000	router = new SC10000();
 	router.errorCode = errorCode;
-	router.csOpcode = errRouterId;
+	router.csOpcode = opCode;
 	router.errorMsg = errInfo;
   List<int> routerBytes  = router.writeToBuffer();
 
   PB_CommonMsg	msg = new PB_CommonMsg();
 	msg.msgId = messageId;
-	msg.opCode = errRouterId;
+	msg.opCode = SC10000_PacketType.PB_PackRetType.value;
 	msg.msgBuf = routerBytes;
 	return msg.writeToBuffer();
 }

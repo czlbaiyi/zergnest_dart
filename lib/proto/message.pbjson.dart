@@ -121,8 +121,8 @@ const SC11002$json = const {
     const {'1': 'platformAccountId', '3': 3, '4': 1, '5': 9},
     const {'1': 'platformAccountName', '3': 4, '4': 1, '5': 9},
     const {'1': 'accessToken', '3': 5, '4': 1, '5': 9},
-    const {'1': 'loginHistories', '3': 6, '4': 3, '5': 11, '6': '.pb_message.PB_AccountLoginHistory'},
-    const {'1': 'serverInfos', '3': 7, '4': 3, '5': 11, '6': '.pb_message.PB_ServerInfo'},
+    const {'1': 'gateSeverAdd', '3': 6, '4': 1, '5': 9},
+    const {'1': 'loginHistories', '3': 7, '4': 3, '5': 11, '6': '.pb_message.PB_AccountLoginHistory'},
   ],
   '4': const [SC11002_PacketType$json],
 };

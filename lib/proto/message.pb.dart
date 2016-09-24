@@ -281,8 +281,8 @@ class SC11002 extends GeneratedMessage {
     ..a/*<String>*/(3, 'platformAccountId', PbFieldType.OS)
     ..a/*<String>*/(4, 'platformAccountName', PbFieldType.OS)
     ..a/*<String>*/(5, 'accessToken', PbFieldType.OS)
-    ..pp/*<PB_AccountLoginHistory>*/(6, 'loginHistories', PbFieldType.PM, PB_AccountLoginHistory.$checkItem, PB_AccountLoginHistory.create)
-    ..pp/*<PB_ServerInfo>*/(7, 'serverInfos', PbFieldType.PM, PB_ServerInfo.$checkItem, PB_ServerInfo.create)
+    ..a/*<String>*/(6, 'gateSeverAdd', PbFieldType.OS)
+    ..pp/*<PB_AccountLoginHistory>*/(7, 'loginHistories', PbFieldType.PM, PB_AccountLoginHistory.$checkItem, PB_AccountLoginHistory.create)
     ..hasRequiredFields = false
   ;
 
@@ -327,9 +327,12 @@ class SC11002 extends GeneratedMessage {
   bool hasAccessToken() => $_has(4, 5);
   void clearAccessToken() => clearField(5);
 
-  List<PB_AccountLoginHistory> get loginHistories => $_get(5, 6, null);
+  String get gateSeverAdd => $_get(5, 6, '');
+  void set gateSeverAdd(String v) { $_setString(5, 6, v); }
+  bool hasGateSeverAdd() => $_has(5, 6);
+  void clearGateSeverAdd() => clearField(6);
 
-  List<PB_ServerInfo> get serverInfos => $_get(6, 7, null);
+  List<PB_AccountLoginHistory> get loginHistories => $_get(6, 7, null);
 }
 
 class _ReadonlySC11002 extends SC11002 with ReadonlyMessageMixin {}

@@ -1,6 +1,12 @@
 library loginserver;
 import 'dart:io';
 import 'package:zergserver/zerg/zerg.dart';
+import 'package:zergserver/proto/message.pb.dart';
+import 'package:fixnum/fixnum.dart';
+
+part "loginrouter.dart";
+part "loginserverdata.dart";
+
 class LoginServer extends module{
   static startServer(){
     LoginServer server = new LoginServer();
@@ -11,6 +17,8 @@ class LoginServer extends module{
 
   void load() {
     logDebug("LoginServer","load begin");
+    registerMessageRouter(new LoginRouter());
+
     logDebug("LoginServer","load sucess");
   }
 
